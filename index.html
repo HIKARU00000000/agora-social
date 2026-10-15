@@ -183,11 +183,16 @@ section { padding: 100px 48px; }
 .info-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.3em; color: var(--mid); text-transform: uppercase; margin-bottom: 16px; transition: color 0.25s; }
 .info-value { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3.5vw, 48px); font-weight: 400; color: var(--dark); line-height: 1.2; margin-bottom: 12px; transition: color 0.25s; }
 .info-note { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.9; transition: color 0.25s; }
-.info-item-ticket { grid-column: 1 / -1; background: var(--cream); border: 1px solid rgba(196, 168, 130, 0.4); }
+.info-item-ticket { grid-column: 1 / -1; background: var(--cream); border: 1px solid rgba(196, 168, 130, 0.4); position: relative; }
 .info-item-ticket .info-value { font-style: italic; color: var(--mid); font-size: clamp(22px, 2.6vw, 32px); }
 .info-item-ticket .info-note { max-width: 640px; }
+.info-item-ticket .info-note strong { font-weight: 500; color: var(--dark); }
 .info-item-ticket:hover { background: var(--dark); border-color: var(--dark); }
 .info-item-ticket:hover .info-value { color: #E8D5A3; }
+.info-item-ticket:hover .info-ticket-icon { color: #E8D5A3; }
+.info-item-ticket:hover .info-note strong { color: var(--cream); }
+.info-ticket-icon { width: 40px; height: 24px; color: var(--light); margin-bottom: 14px; transition: color 0.25s; }
+.info-ticket-icon svg { width: 100%; height: 100%; display: block; }
 
 /* RECORD */
 #record { position: relative; overflow: hidden; background: #1a1210; padding: 0; isolation: isolate; }
@@ -841,9 +846,17 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         <p class="info-note">男性 / 女性・当日受付にて<br>対象年齢 25〜35歳・現金/PayPay</p>
       </div>
       <div class="info-item info-item-ticket">
+        <div class="info-ticket-icon">
+          <svg viewBox="0 0 48 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6 L44 6 L44 12 Q42 12 42 14 Q42 16 44 16 L44 22 L4 22 L4 16 Q6 16 6 14 Q6 12 4 12 Z"/>
+            <line x1="30" y1="9" x2="30" y2="11"/>
+            <line x1="30" y1="13" x2="30" y2="15"/>
+            <line x1="30" y1="17" x2="30" y2="19"/>
+          </svg>
+        </div>
         <p class="info-label">Welcome Ticket</p>
         <p class="info-value">一杯の、きっかけ</p>
-        <p class="info-note">男性参加者には「ウェルカムチケット」を1枚お渡し。気になる方へドリンク or フードを一品お贈りいただけます。<br>※ お使いにならなかった場合は、次回開催の300円割引券として。</p>
+        <p class="info-note">男性参加者には「ウェルカムチケット」を1枚お渡し。<strong>女性参加者の方へ</strong>ドリンク or フードを一品お贈りいただく専用のチケットです（ご自身ではお使いいただけません）。<br>※ お使いにならなかった場合は、次回開催の300円割引券として。</p>
       </div>
     </div>
   </div>
