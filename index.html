@@ -790,7 +790,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
       <div class="info-item">
         <p class="info-label">Open</p>
         <p class="info-value">12:00 – 16:00</p>
-        <p class="info-note">両日とも同時刻<br>受付開始 12:00 / 最終受付 14:00</p>
+        <p class="info-note">両日とも同時刻<br>受付開始 12:00 / 最終受付 15:00</p>
       </div>
       <div class="info-item">
         <p class="info-label">Venue</p>
@@ -895,7 +895,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
           <span class="flow-tag">男 ¥2,500 / 女 ¥1,500</span>
           <span class="flow-tag">途中参加OK</span>
         </div>
-        <p class="flow-text">事前予約で入場料は男性¥2,500 / 女性¥1,500（当日受付でお支払い）。「試しに行ってみようかな」の気持ちで大丈夫です。最終受付は14:00までなので、ゆっくり準備して来ても間に合います。予定より遅れそうな時のご連絡も不要。ひとりで来られる方が多いイベントなので、初めてでも自然に溶け込めます。</p>
+        <p class="flow-text">事前予約で入場料は男性¥2,500 / 女性¥1,500（当日受付でお支払い）。「試しに行ってみようかな」の気持ちで大丈夫です。最終受付は15:00までなので、ゆっくり準備して来ても間に合います。予定より遅れそうな時のご連絡も不要。ひとりで来られる方が多いイベントなので、初めてでも自然に溶け込めます。</p>
       </div>
       <div class="flow-step reveal reveal-d1">
         <p class="flow-num">02</p>
@@ -1048,7 +1048,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
 (function() {
   // 会場スケジュール (JST) — 開催日を追加するとサイトが自動で状態遷移する
   var EVENT_DATES = ['2026-11-14', '2026-11-15'];
-  var LAST_ENTRY  = '14:00';
+  var LAST_ENTRY  = '15:00';
   var CLOSE_TIME  = '16:00';
   // 事前予約の受付締切時刻 (各開催日の当日午前まで受付)
   var RESERVE_CUTOFF_TIME = '09:00';
@@ -1117,7 +1117,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         if (todayStillOpen) {
           elNote.innerHTML = '本日の事前予約は 9:00 まで受付中です';
         } else {
-          elNote.innerHTML = '事前予約は本日 9:00 で締切ました。<br>当日はそのまま会場までお越しください（最終受付 14:00）';
+          elNote.innerHTML = '事前予約は本日 9:00 で締切ました。<br>当日はそのまま会場までお越しください（最終受付 15:00）';
         }
       } else if (isEventToday) {
         // 開催日その1
