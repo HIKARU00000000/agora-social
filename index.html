@@ -1234,15 +1234,15 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         // 最終日 — 全予約終了
         elLabel.textContent = '本日 最終日';
         elUnit.textContent = 'OPEN 12:00 〜 16:00';
-        elNote.innerHTML = '事前予約は受付終了いたしました<br>当日はそのまま会場までお越しください（最終受付 15:00）';
+        elNote.innerHTML = '事前予約は受付終了しました<br>当日参加も受付中（最終受付 15:00）';
       } else if (isEventToday) {
         // 開催日その1（最終日ではない） — 翌日分の予約はまだ可能
         elLabel.textContent = '本日 開催中';
         elUnit.textContent = 'OPEN 12:00 〜 16:00';
         if (futureDates.length > 0) {
-          elNote.innerHTML = '明日 ' + fmtDate(futureDates[0]) + ' の事前予約は本日中まで受付中';
+          elNote.innerHTML = '本日は当日参加も受付中（最終受付 15:00）<br>明日 ' + fmtDate(futureDates[0]) + ' の事前予約は本日中まで受付中';
         } else {
-          elNote.textContent = '';
+          elNote.innerHTML = '本日は当日参加も受付中（最終受付 15:00）';
         }
       } else {
         // 期間内で今日は開催日ではない
