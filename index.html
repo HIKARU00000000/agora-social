@@ -185,31 +185,37 @@ section { padding: 100px 48px; }
 .info-note { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.9; transition: color 0.25s; }
 
 /* RECORD */
-#record { background: var(--beige); }
-.record-panel { background: var(--white); border: 1px solid rgba(139, 99, 72, 0.22); max-width: 960px; margin: 0 auto; box-shadow: 0 1px 3px rgba(61, 43, 31, 0.04); overflow: hidden; }
-.record-header { text-align: center; padding: 48px 40px 40px; border-bottom: 1px solid rgba(139, 99, 72, 0.15); }
-.record-header .section-eyebrow { color: var(--mid); margin-bottom: 14px; }
-.record-header .section-title { font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 12px; }
-.record-sub { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 300; color: var(--muted); letter-spacing: 0.12em; margin: 0; text-align: center; }
-.record-hero-cell { text-align: center; padding: 56px 32px; background: var(--cream); border-bottom: 1px solid rgba(139, 99, 72, 0.15); }
+#record { position: relative; overflow: hidden; background: #1a1210; }
+.record-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; z-index: 0; }
+.record-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(10,6,8,0.82) 0%, rgba(10,6,8,0.76) 50%, rgba(10,6,8,0.88) 100%); }
+#record > * { position: relative; z-index: 2; }
+#record .section-eyebrow { color: var(--light); }
+#record .section-title { color: var(--cream); }
+#record .section-title em { color: #E8D5A3; }
+.record-panel { background: rgba(10, 6, 8, 0.4); border: 1px solid rgba(250, 246, 241, 0.18); max-width: 960px; margin: 0 auto; overflow: hidden; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.record-header { text-align: center; padding: 48px 40px 40px; border-bottom: 1px solid rgba(250, 246, 241, 0.15); }
+.record-header .section-eyebrow { color: #E8D5A3; margin-bottom: 14px; }
+.record-header .section-title { font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 12px; color: var(--cream); }
+.record-sub { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 300; color: rgba(250, 246, 241, 0.6); letter-spacing: 0.12em; margin: 0; text-align: center; }
+.record-hero-cell { text-align: center; padding: 56px 32px; background: rgba(250, 246, 241, 0.04); border-bottom: 1px solid rgba(250, 246, 241, 0.15); }
 .record-stats-grid { display: grid; grid-template-columns: 1fr 1fr; }
 .record-cell { padding: 40px 32px; text-align: center; }
-.record-cell + .record-cell { border-left: 1px solid rgba(139, 99, 72, 0.15); }
-.record-stats-grid > .record-cell:nth-child(n+3) { border-top: 1px solid rgba(139, 99, 72, 0.15); }
-.record-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.32em; color: var(--mid); text-transform: uppercase; margin-bottom: 20px; }
-.record-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--dark); line-height: 1; font-size: clamp(52px, 6.5vw, 68px); letter-spacing: -0.01em; }
-.record-num-hero { font-size: clamp(96px, 12vw, 136px); }
-.record-num-unit { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); margin-left: 8px; letter-spacing: 0.03em; }
-.record-sublabel { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 300; color: var(--muted); margin-top: 18px; letter-spacing: 0.12em; }
-.record-ratio-cell { grid-column: 1 / -1; border-top: 1px solid rgba(139, 99, 72, 0.15); padding: 44px 32px; background: var(--cream); }
+.record-cell + .record-cell { border-left: 1px solid rgba(250, 246, 241, 0.15); }
+.record-stats-grid > .record-cell:nth-child(n+3) { border-top: 1px solid rgba(250, 246, 241, 0.15); }
+.record-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.32em; color: #E8D5A3; text-transform: uppercase; margin-bottom: 20px; }
+.record-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--cream); line-height: 1; font-size: clamp(52px, 6.5vw, 68px); letter-spacing: -0.01em; }
+.record-num-hero { font-size: clamp(96px, 12vw, 136px); color: #F5E6C8; }
+.record-num-unit { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 300; color: rgba(250, 246, 241, 0.65); margin-left: 8px; letter-spacing: 0.03em; }
+.record-sublabel { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 300; color: rgba(250, 246, 241, 0.6); margin-top: 18px; letter-spacing: 0.12em; }
+.record-ratio-cell { grid-column: 1 / -1; border-top: 1px solid rgba(250, 246, 241, 0.15); padding: 44px 32px; background: rgba(250, 246, 241, 0.04); }
 .record-ratio-row { display: flex; justify-content: center; align-items: baseline; gap: 32px; margin-bottom: 20px; }
 .record-ratio-item { text-align: center; }
 .record-ratio-item .record-num { font-size: clamp(52px, 6vw, 64px); }
 .record-ratio-item .record-sublabel { margin-top: 10px; }
-.record-ratio-sep { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: rgba(139, 99, 72, 0.35); font-weight: 300; font-style: italic; align-self: center; }
-.record-ratio-bar { display: flex; height: 4px; max-width: 420px; margin: 0 auto; overflow: hidden; background: rgba(139, 99, 72, 0.08); border-radius: 2px; }
-.record-ratio-bar-m { background: var(--mid); }
-.record-ratio-bar-f { background: var(--light); }
+.record-ratio-sep { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: rgba(232, 213, 163, 0.45); font-weight: 300; font-style: italic; align-self: center; }
+.record-ratio-bar { display: flex; height: 4px; max-width: 420px; margin: 0 auto; overflow: hidden; background: rgba(250, 246, 241, 0.1); border-radius: 2px; }
+.record-ratio-bar-m { background: #C4A862; }
+.record-ratio-bar-f { background: rgba(232, 213, 163, 0.65); }
 @media (max-width: 768px) {
   .record-header { padding: 32px 20px 28px; }
   .record-hero-cell { padding: 40px 20px; }
@@ -808,6 +814,8 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
 
 <!-- RECORD -->
 <section id="record">
+  <img src="assets/record-bg.jpg" alt="" class="record-bg-img">
+  <div class="record-overlay"></div>
   <div class="max-w">
     <div class="record-panel reveal">
       <div class="record-header">
