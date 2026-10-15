@@ -196,6 +196,8 @@ section { padding: 100px 48px; }
 .record-hero { text-align: center; display: flex; flex-direction: column; justify-content: center; }
 .record-side { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
 .record-item { text-align: left; }
+.record-days-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.record-days-row .record-num { font-size: clamp(36px, 4.5vw, 48px); }
 .record-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.32em; color: var(--mid); text-transform: uppercase; margin-bottom: 14px; }
 .record-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--dark); line-height: 1; font-size: clamp(44px, 5vw, 56px); letter-spacing: -0.01em; }
 .record-num-hero { font-size: clamp(84px, 11vw, 128px); }
@@ -215,6 +217,7 @@ section { padding: 100px 48px; }
   .record-body { grid-template-columns: 1fr; gap: 32px; }
   .record-divider-v { width: 48px; height: 1px; margin: 0 auto; }
   .record-side { gap: 28px; }
+  .record-days-row { gap: 20px; }
   .record-num-hero { font-size: 88px; }
 }
 
@@ -822,13 +825,15 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         </div>
         <div class="record-divider-v"></div>
         <div class="record-side">
-          <div class="record-item">
-            <p class="record-label">Day 1 &nbsp;·&nbsp; 9.12 Sat</p>
-            <p class="record-num">174<span class="record-num-unit">名</span></p>
-          </div>
-          <div class="record-item">
-            <p class="record-label">Day 2 &nbsp;·&nbsp; 9.13 Sun</p>
-            <p class="record-num">189<span class="record-num-unit">名</span></p>
+          <div class="record-days-row">
+            <div class="record-item">
+              <p class="record-label">Day 1 &nbsp;·&nbsp; 9.12 Sat</p>
+              <p class="record-num">174<span class="record-num-unit">名</span></p>
+            </div>
+            <div class="record-item">
+              <p class="record-label">Day 2 &nbsp;·&nbsp; 9.13 Sun</p>
+              <p class="record-num">189<span class="record-num-unit">名</span></p>
+            </div>
           </div>
           <div class="record-item">
             <p class="record-label">Gender Ratio</p>
