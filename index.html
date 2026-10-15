@@ -186,39 +186,37 @@ section { padding: 100px 48px; }
 
 /* RECORD */
 #record { background: var(--beige); }
-.record-panel { background: var(--white); border: 1px solid rgba(139, 99, 72, 0.22); padding: 56px 56px 52px; max-width: 1000px; margin: 0 auto; box-shadow: 0 1px 3px rgba(61, 43, 31, 0.04); }
-.record-header { text-align: center; margin-bottom: 44px; padding-bottom: 36px; border-bottom: 1px solid rgba(139, 99, 72, 0.12); }
+.record-panel { background: var(--white); border: 1px solid rgba(139, 99, 72, 0.22); max-width: 960px; margin: 0 auto; box-shadow: 0 1px 3px rgba(61, 43, 31, 0.04); overflow: hidden; }
+.record-header { text-align: center; padding: 48px 40px 40px; border-bottom: 1px solid rgba(139, 99, 72, 0.15); }
 .record-header .section-eyebrow { color: var(--mid); margin-bottom: 14px; }
-.record-header .section-title { font-size: clamp(28px, 3.8vw, 44px); margin-bottom: 12px; }
+.record-header .section-title { font-size: clamp(28px, 3.6vw, 40px); margin-bottom: 12px; }
 .record-sub { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 300; color: var(--muted); letter-spacing: 0.12em; margin: 0; text-align: center; }
-.record-body { display: grid; grid-template-columns: 1.25fr auto 1fr; gap: 56px; align-items: stretch; }
-.record-divider-v { width: 1px; background: rgba(139, 99, 72, 0.15); }
-.record-hero { text-align: center; display: flex; flex-direction: column; justify-content: center; }
-.record-side { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
-.record-item { text-align: left; }
-.record-days-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.record-days-row .record-num { font-size: clamp(36px, 4.5vw, 48px); }
-.record-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.32em; color: var(--mid); text-transform: uppercase; margin-bottom: 14px; }
-.record-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--dark); line-height: 1; font-size: clamp(44px, 5vw, 56px); letter-spacing: -0.01em; }
-.record-num-hero { font-size: clamp(84px, 11vw, 128px); }
-.record-num-unit { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 300; color: var(--mid); margin-left: 7px; }
-.record-sublabel { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; font-weight: 300; color: var(--muted); margin-top: 14px; letter-spacing: 0.14em; }
-.record-ratio-row { display: flex; align-items: baseline; gap: 14px; }
-.record-ratio-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 44px); font-weight: 300; color: var(--dark); line-height: 1; }
-.record-ratio-num small { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; font-weight: 300; color: var(--mid); margin-left: 4px; }
-.record-ratio-sep { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: rgba(139, 99, 72, 0.4); font-weight: 300; font-style: italic; }
-.record-ratio-bar { display: flex; height: 2px; overflow: hidden; background: rgba(139, 99, 72, 0.08); margin-top: 14px; }
+.record-hero-cell { text-align: center; padding: 56px 32px; background: var(--cream); border-bottom: 1px solid rgba(139, 99, 72, 0.15); }
+.record-stats-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.record-cell { padding: 40px 32px; text-align: center; }
+.record-cell + .record-cell { border-left: 1px solid rgba(139, 99, 72, 0.15); }
+.record-stats-grid > .record-cell:nth-child(n+3) { border-top: 1px solid rgba(139, 99, 72, 0.15); }
+.record-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.32em; color: var(--mid); text-transform: uppercase; margin-bottom: 20px; }
+.record-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--dark); line-height: 1; font-size: clamp(52px, 6.5vw, 68px); letter-spacing: -0.01em; }
+.record-num-hero { font-size: clamp(96px, 12vw, 136px); }
+.record-num-unit { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: 300; color: var(--mid); margin-left: 8px; letter-spacing: 0.03em; }
+.record-sublabel { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 300; color: var(--muted); margin-top: 18px; letter-spacing: 0.12em; }
+.record-ratio-cell { grid-column: 1 / -1; border-top: 1px solid rgba(139, 99, 72, 0.15); padding: 44px 32px; background: var(--cream); }
+.record-ratio-row { display: flex; justify-content: center; align-items: baseline; gap: 32px; margin-bottom: 20px; }
+.record-ratio-item { text-align: center; }
+.record-ratio-item .record-num { font-size: clamp(52px, 6vw, 64px); }
+.record-ratio-item .record-sublabel { margin-top: 10px; }
+.record-ratio-sep { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: rgba(139, 99, 72, 0.35); font-weight: 300; font-style: italic; align-self: center; }
+.record-ratio-bar { display: flex; height: 4px; max-width: 420px; margin: 0 auto; overflow: hidden; background: rgba(139, 99, 72, 0.08); border-radius: 2px; }
 .record-ratio-bar-m { background: var(--mid); }
 .record-ratio-bar-f { background: var(--light); }
-.record-ratio-legend { display: flex; justify-content: space-between; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; margin-top: 10px; }
 @media (max-width: 768px) {
-  .record-panel { padding: 36px 24px 32px; }
-  .record-header { margin-bottom: 32px; padding-bottom: 28px; }
-  .record-body { grid-template-columns: 1fr; gap: 32px; }
-  .record-divider-v { width: 48px; height: 1px; margin: 0 auto; }
-  .record-side { gap: 28px; }
-  .record-days-row { gap: 20px; }
+  .record-header { padding: 32px 20px 28px; }
+  .record-hero-cell { padding: 40px 20px; }
+  .record-cell { padding: 32px 20px; }
+  .record-ratio-cell { padding: 36px 20px; }
   .record-num-hero { font-size: 88px; }
+  .record-ratio-row { gap: 20px; }
 }
 
 /* FLOW */
@@ -792,7 +790,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
       <div class="info-item">
         <p class="info-label">Open</p>
         <p class="info-value">12:00 – 16:00</p>
-        <p class="info-note">両日とも同時刻<br>受付開始 12:00 / 最終受付 15:00</p>
+        <p class="info-note">両日とも同時刻<br>受付開始 12:00 / 最終受付 14:00</p>
       </div>
       <div class="info-item">
         <p class="info-label">Venue</p>
@@ -817,40 +815,39 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         <h2 class="section-title">前回初開催の<em>実績</em></h2>
         <p class="record-sub">2026年9月12日（土）・13日（日）開催分</p>
       </div>
-      <div class="record-body">
-        <div class="record-hero">
-          <p class="record-label">Total Attendance</p>
-          <p class="record-num record-num-hero">363<span class="record-num-unit">名</span></p>
-          <p class="record-sublabel">2日間の延べ参加者数</p>
+      <div class="record-hero-cell">
+        <p class="record-label">Total Attendance</p>
+        <p class="record-num record-num-hero">363<span class="record-num-unit">名</span></p>
+        <p class="record-sublabel">2日間の延べ参加者数</p>
+      </div>
+      <div class="record-stats-grid">
+        <div class="record-cell">
+          <p class="record-label">Day 1</p>
+          <p class="record-num">174<span class="record-num-unit">名</span></p>
+          <p class="record-sublabel">9月12日（土）</p>
         </div>
-        <div class="record-divider-v"></div>
-        <div class="record-side">
-          <div class="record-days-row">
-            <div class="record-item">
-              <p class="record-label">Day 1 &nbsp;·&nbsp; 9.12 Sat</p>
-              <p class="record-num">174<span class="record-num-unit">名</span></p>
-            </div>
-            <div class="record-item">
-              <p class="record-label">Day 2 &nbsp;·&nbsp; 9.13 Sun</p>
-              <p class="record-num">189<span class="record-num-unit">名</span></p>
-            </div>
+        <div class="record-cell">
+          <p class="record-label">Day 2</p>
+          <p class="record-num">189<span class="record-num-unit">名</span></p>
+          <p class="record-sublabel">9月13日（日）</p>
+        </div>
+      </div>
+      <div class="record-ratio-cell">
+        <p class="record-label">Gender Ratio</p>
+        <div class="record-ratio-row">
+          <div class="record-ratio-item">
+            <p class="record-num">55<span class="record-num-unit">%</span></p>
+            <p class="record-sublabel">男性 Male</p>
           </div>
-          <div class="record-item">
-            <p class="record-label">Gender Ratio</p>
-            <div class="record-ratio-row">
-              <span class="record-ratio-num">55<small>%</small></span>
-              <span class="record-ratio-sep">/</span>
-              <span class="record-ratio-num">45<small>%</small></span>
-            </div>
-            <div class="record-ratio-bar">
-              <div class="record-ratio-bar-m" style="width: 55%;"></div>
-              <div class="record-ratio-bar-f" style="width: 45%;"></div>
-            </div>
-            <div class="record-ratio-legend">
-              <span>男性 Male</span>
-              <span>女性 Female</span>
-            </div>
+          <span class="record-ratio-sep">/</span>
+          <div class="record-ratio-item">
+            <p class="record-num">45<span class="record-num-unit">%</span></p>
+            <p class="record-sublabel">女性 Female</p>
           </div>
+        </div>
+        <div class="record-ratio-bar">
+          <div class="record-ratio-bar-m" style="width: 55%;"></div>
+          <div class="record-ratio-bar-f" style="width: 45%;"></div>
         </div>
       </div>
     </div>
@@ -898,7 +895,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
           <span class="flow-tag">男 ¥2,500 / 女 ¥1,500</span>
           <span class="flow-tag">途中参加OK</span>
         </div>
-        <p class="flow-text">事前予約で入場料は男性¥2,500 / 女性¥1,500（当日受付でお支払い）。「試しに行ってみようかな」の気持ちで大丈夫です。最終受付は15:00までなので、ゆっくり準備して来ても間に合います。予定より遅れそうな時のご連絡も不要。ひとりで来られる方が多いイベントなので、初めてでも自然に溶け込めます。</p>
+        <p class="flow-text">事前予約で入場料は男性¥2,500 / 女性¥1,500（当日受付でお支払い）。「試しに行ってみようかな」の気持ちで大丈夫です。最終受付は14:00までなので、ゆっくり準備して来ても間に合います。予定より遅れそうな時のご連絡も不要。ひとりで来られる方が多いイベントなので、初めてでも自然に溶け込めます。</p>
       </div>
       <div class="flow-step reveal reveal-d1">
         <p class="flow-num">02</p>
@@ -1051,7 +1048,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
 (function() {
   // 会場スケジュール (JST) — 開催日を追加するとサイトが自動で状態遷移する
   var EVENT_DATES = ['2026-11-14', '2026-11-15'];
-  var LAST_ENTRY  = '15:00';
+  var LAST_ENTRY  = '14:00';
   var CLOSE_TIME  = '16:00';
   // 事前予約の受付締切時刻 (各開催日の当日午前まで受付)
   var RESERVE_CUTOFF_TIME = '09:00';
@@ -1120,7 +1117,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         if (todayStillOpen) {
           elNote.innerHTML = '本日の事前予約は 9:00 まで受付中です';
         } else {
-          elNote.innerHTML = '事前予約は本日 9:00 で締切ました。<br>当日はそのまま会場までお越しください（最終受付 15:00）';
+          elNote.innerHTML = '事前予約は本日 9:00 で締切ました。<br>当日はそのまま会場までお越しください（最終受付 14:00）';
         }
       } else if (isEventToday) {
         // 開催日その1
