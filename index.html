@@ -187,7 +187,37 @@ section { padding: 100px 48px; }
 /* RECORD */
 #record { background: var(--cream); }
 #record .section-title { margin-bottom: 16px; }
-.record-sub { font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 300; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 48px; }
+.record-sub { font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 300; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 48px; text-align: center; }
+.record-dashboard { display: flex; flex-direction: column; gap: 2px; }
+.record-kpi { background: var(--dark); padding: 48px 32px; text-align: center; color: var(--cream); }
+.record-kpi-hero { padding: 64px 32px; }
+.record-kpi-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.3em; color: var(--light); text-transform: uppercase; margin-bottom: 20px; }
+.record-kpi-row { display: flex; align-items: baseline; justify-content: center; gap: 10px; }
+.record-kpi-value { font-family: 'Cormorant Garamond', serif; font-size: clamp(56px, 8vw, 84px); font-weight: 300; color: var(--cream); line-height: 1; }
+.record-kpi-hero .record-kpi-value { color: #E8D5A3; font-size: clamp(72px, 11vw, 120px); }
+.record-kpi-unit { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: rgba(250,246,241,0.55); }
+.record-kpi-note { margin-top: 16px; font-size: 11px; font-weight: 300; color: rgba(250,246,241,0.5); letter-spacing: 0.08em; }
+.record-kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.record-chart-card { background: var(--white); padding: 48px 40px; border: 1px solid rgba(139,99,72,0.15); }
+.record-chart-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.3em; color: var(--mid); text-transform: uppercase; margin-bottom: 28px; text-align: center; }
+.record-bar { display: flex; height: 56px; border-radius: 2px; overflow: hidden; margin-bottom: 22px; }
+.record-bar-male { background: linear-gradient(to right, #4A7A95, #5B9FC5); display: flex; align-items: center; justify-content: flex-end; padding-right: 20px; }
+.record-bar-female { background: linear-gradient(to right, #D08585, #E8A5A5); display: flex; align-items: center; justify-content: flex-end; padding-right: 20px; }
+.record-bar span { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--cream); font-weight: 400; letter-spacing: 0.02em; }
+.record-bar-legend { display: flex; justify-content: center; gap: 40px; }
+.record-bar-legend-item { display: flex; align-items: center; gap: 10px; font-family: 'Noto Sans JP', sans-serif; font-size: 13px; color: var(--dark); font-weight: 400; }
+.record-bar-legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.record-bar-legend-dot.male { background: #5B9FC5; }
+.record-bar-legend-dot.female { background: #D08585; }
+@media (max-width: 768px) {
+  .record-kpi-grid { grid-template-columns: 1fr; }
+  .record-kpi { padding: 36px 24px; }
+  .record-kpi-hero { padding: 48px 24px; }
+  .record-chart-card { padding: 32px 24px; }
+  .record-bar { height: 44px; }
+  .record-bar span { font-size: 18px; }
+  .record-bar-legend { gap: 28px; }
+}
 
 /* FLOW */
 #flow { background: var(--cream); }
@@ -782,31 +812,34 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
     <p class="section-eyebrow reveal">Previous Event</p>
     <h2 class="section-title reveal">前回初開催の<em>実績</em></h2>
     <p class="record-sub reveal">2026年9月12日（土）・13日（日）開催分</p>
-    <div class="info-grid reveal">
-      <div class="info-item" style="grid-column: 1 / -1; text-align: center;">
-        <p class="info-label">Total</p>
-        <p class="info-value">363名</p>
-        <p class="info-note">2日間の延べ参加者数</p>
+    <div class="record-dashboard reveal">
+      <div class="record-kpi record-kpi-hero">
+        <p class="record-kpi-label">Total Attendance</p>
+        <p class="record-kpi-row"><span class="record-kpi-value">363</span><span class="record-kpi-unit">名</span></p>
+        <p class="record-kpi-note">2日間の延べ参加者数</p>
       </div>
-      <div class="info-item">
-        <p class="info-label">Day 1</p>
-        <p class="info-value">174名</p>
-        <p class="info-note">9月12日（土）</p>
+      <div class="record-kpi-grid">
+        <div class="record-kpi">
+          <p class="record-kpi-label">Day 1</p>
+          <p class="record-kpi-row"><span class="record-kpi-value">174</span><span class="record-kpi-unit">名</span></p>
+          <p class="record-kpi-note">9月12日（土）</p>
+        </div>
+        <div class="record-kpi">
+          <p class="record-kpi-label">Day 2</p>
+          <p class="record-kpi-row"><span class="record-kpi-value">189</span><span class="record-kpi-unit">名</span></p>
+          <p class="record-kpi-note">9月13日（日）</p>
+        </div>
       </div>
-      <div class="info-item">
-        <p class="info-label">Day 2</p>
-        <p class="info-value">189名</p>
-        <p class="info-note">9月13日（日）</p>
-      </div>
-      <div class="info-item">
-        <p class="info-label">Male</p>
-        <p class="info-value">55%</p>
-        <p class="info-note">男性比率</p>
-      </div>
-      <div class="info-item">
-        <p class="info-label">Female</p>
-        <p class="info-value">45%</p>
-        <p class="info-note">女性比率</p>
+      <div class="record-chart-card">
+        <p class="record-chart-title">Gender Ratio</p>
+        <div class="record-bar">
+          <div class="record-bar-male" style="width: 55%;"><span>55%</span></div>
+          <div class="record-bar-female" style="width: 45%;"><span>45%</span></div>
+        </div>
+        <div class="record-bar-legend">
+          <div class="record-bar-legend-item"><span class="record-bar-legend-dot male"></span>男性</div>
+          <div class="record-bar-legend-item"><span class="record-bar-legend-dot female"></span>女性</div>
+        </div>
       </div>
     </div>
   </div>
