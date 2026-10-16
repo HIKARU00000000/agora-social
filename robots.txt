@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /threads-assets/
+
+# サイト本体はクロール歓迎
+# /threads-assets/ 配下はThreads投稿用アセットのため検索インデックス対象外
