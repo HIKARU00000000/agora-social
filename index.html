@@ -725,7 +725,79 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
     object-fit: contain !important;
   }
 }
+
+/* 予約状況 男女比表示 */
+.reserve-status { margin-bottom: 44px; display: none; }
+.reserve-status.is-ready { display: block; }
+.reserve-status-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgba(232, 213, 163, 0.7);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.reserve-status-label {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(250, 246, 241, 0.6);
+  text-align: center;
+  margin-bottom: 20px;
+}
+.reserve-ratio-row {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 14px;
+}
+.reserve-ratio-item { text-align: center; }
+.reserve-ratio-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+}
+.reserve-ratio-unit {
+  font-size: 18px;
+  margin-left: 2px;
+  color: rgba(250, 246, 241, 0.7);
+}
+.reserve-ratio-sublabel {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(250, 246, 241, 0.5);
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+.reserve-ratio-sep {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  color: rgba(232, 213, 163, 0.45);
+  font-weight: 300;
+  font-style: italic;
+  align-self: center;
+}
+.reserve-ratio-bar {
+  display: flex;
+  height: 3px;
+  max-width: 320px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: rgba(250, 246, 241, 0.1);
+  border-radius: 2px;
+}
+.reserve-ratio-bar-m { background: #C4A862; transition: width 0.6s ease; }
+.reserve-ratio-bar-f { background: rgba(232, 213, 163, 0.65); transition: width 0.6s ease; }
+@media (max-width: 480px) {
+  .reserve-ratio-row { gap: 18px; }
+  .reserve-ratio-num { font-size: 32px; }
+}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
 
@@ -873,6 +945,25 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         <div class="countdown-item"><span class="countdown-num" id="cd-days">--</span><span class="countdown-unit" id="cd-unit">日</span></div>
       </div>
       <p class="countdown-note" id="cd-note"></p>
+    </div>
+    <div class="reserve-status reveal" id="reserve-status">
+      <p class="reserve-status-eyebrow">Current Status</p>
+      <p class="reserve-status-label">現在の予約状況</p>
+      <div class="reserve-ratio-row">
+        <div class="reserve-ratio-item">
+          <p class="reserve-ratio-num"><span id="ratio-m">--</span><span class="reserve-ratio-unit">%</span></p>
+          <p class="reserve-ratio-sublabel">男性 Male</p>
+        </div>
+        <span class="reserve-ratio-sep">/</span>
+        <div class="reserve-ratio-item">
+          <p class="reserve-ratio-num"><span id="ratio-f">--</span><span class="reserve-ratio-unit">%</span></p>
+          <p class="reserve-ratio-sublabel">女性 Female</p>
+        </div>
+      </div>
+      <div class="reserve-ratio-bar">
+        <div class="reserve-ratio-bar-m" id="ratio-bar-m" style="width: 50%;"></div>
+        <div class="reserve-ratio-bar-f" id="ratio-bar-f" style="width: 50%;"></div>
+      </div>
     </div>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSefy_wA1njOf9eJVLLLuenj8aejwlylnMNXpvzZNukfvfvhKQ/viewform?usp=header" target="_blank" class="reserve-btn reserve-btn-pulse reveal" id="reserve-btn">
       予約フォームへ進む &nbsp;→
@@ -1153,6 +1244,83 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
 </footer>
 
 <script>
+// 予約状況 (男女比) 取得・表示
+(function() {
+  var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSBM5S7CbRjPYkoh05ZQZiQ-yXrPahTc6fokZrUhA92lNh-nMAuyvAnvSm1pBTP-7U-MddJd5y_nxud/pub?gid=677021138&single=true&output=csv';
+
+  function updateRatio(male, female) {
+    var total = male + female;
+    if (total === 0) return;
+    var mPct = Math.round(male / total * 100);
+    var fPct = 100 - mPct;
+    document.getElementById('ratio-m').textContent = mPct;
+    document.getElementById('ratio-f').textContent = fPct;
+    document.getElementById('ratio-bar-m').style.width = mPct + '%';
+    document.getElementById('ratio-bar-f').style.width = fPct + '%';
+    document.getElementById('reserve-status').classList.add('is-ready');
+  }
+
+  if (typeof Papa === 'undefined') return;
+
+  Papa.parse(CSV_URL, {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+      try {
+        var rows = results.data || [];
+        var male = 0, female = 0;
+        var seenEmails = {};
+        // 同メールの重複は最新送信のみを採用
+        var sorted = rows.slice().sort(function(a, b) {
+          return new Date(a['タイムスタンプ'] || 0) - new Date(b['タイムスタンプ'] || 0);
+        });
+        sorted.forEach(function(r) {
+          var email = ((r['メールアドレス'] || '') + '').trim().toLowerCase();
+          if (email) seenEmails[email] = r;
+        });
+        var uniqueRows = Object.keys(seenEmails).length > 0
+          ? Object.values(seenEmails)
+          : rows;
+        // 接尾辞のある列名も拾う前方一致ヘルパ
+        function getField(row, prefix) {
+          if (row[prefix] != null && String(row[prefix]).trim() !== '') return String(row[prefix]).trim();
+          var keys = Object.keys(row);
+          for (var i = 0; i < keys.length; i++) {
+            if (keys[i].indexOf(prefix) === 0) {
+              var v = String(row[keys[i]] || '').trim();
+              if (v) return v;
+            }
+          }
+          return '';
+        }
+
+        uniqueRows.forEach(function(r) {
+          // 11月開催のみを対象
+          var n14 = getField(r, '11/14（土）の参加人数');
+          var n15 = getField(r, '11/15（日）の参加人数');
+          var dateRaw = getField(r, '参加日程');
+          var hasNov = false;
+          if (/\d/.test(n14) && n14.indexOf('参加しない') === -1) hasNov = true;
+          if (/\d/.test(n15) && n15.indexOf('参加しない') === -1) hasNov = true;
+          if (!hasNov && (dateRaw.indexOf('11/14') >= 0 || dateRaw.indexOf('11/15') >= 0)) hasNov = true;
+          if (!hasNov) return;
+
+          var g = getField(r, '性別');
+          if (g === '男性') male++;
+          else if (g === '女性') female++;
+        });
+        updateRatio(male, female);
+      } catch (e) {
+        console.error('予約状況の集計エラー:', e);
+      }
+    },
+    error: function(err) {
+      console.error('予約状況の取得エラー:', err);
+    }
+  });
+})();
+
 // Countdown / event-state driver
 (function() {
   // 会場スケジュール (JST) — 開催日を追加するとサイトが自動で状態遷移する
