@@ -1344,17 +1344,27 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
 
 // Countdown / event-state driver
 (function() {
-  // 会場スケジュール (JST) — 開催日を追加するとサイトが自動で状態遷移する
-  var EVENT_DATES = ['2026-11-14', '2026-11-15'];
+  // 会場スケジュール (JST) — 各開催日の事前予約締切時刻を指定
+  // closeAt: その時刻まで事前予約可能(= 時刻以降は締切)
+  var EVENT_SCHEDULES = [
+    { date: '2026-11-14', closeAt: new Date('2026-11-14T09:00:00+09:00') }, // 当日9:00まで
+    { date: '2026-11-15', closeAt: new Date('2026-11-15T00:00:00+09:00') }, // 前日23:59まで
+  ];
+  var EVENT_DATES = EVENT_SCHEDULES.map(function(e) { return e.date; });
   var LAST_ENTRY  = '15:00';
   var CLOSE_TIME  = '16:00';
-  // 事前予約は各開催日の「前日まで」受付 (当日の予約は不可)
 
   var d = function(date, time) { return new Date(date + 'T' + time + ':00+09:00'); };
   var day1Start = d(EVENT_DATES[0], '00:00');
   var lastDay   = EVENT_DATES[EVENT_DATES.length - 1];
   // 全日程終了は最終日の 24:00 JST (= 翌日 00:00 JST) に切り替え
   var eventEnd  = new Date(d(lastDay, '00:00').getTime() + 86400000);
+
+  function fmtHHmm(date) {
+    return new Intl.DateTimeFormat('ja-JP', {
+      timeZone: 'Asia/Tokyo', hour: 'numeric', minute: '2-digit', hour12: false,
+    }).format(date);
+  }
 
   function pad(n) { return String(n).padStart(2, '0'); }
   // Intl.DateTimeFormat で JST の日付を YYYY-MM-DD で確実に取得
@@ -1382,7 +1392,13 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
   function update() {
     var now = new Date();
     var today = todayJst();
-    var futureDates = EVENT_DATES.filter(function(dt) { return dt > today; });
+
+    // 予約可能なスケジュール: closeAt が未来のもの
+    var reservableSchedules = EVENT_SCHEDULES.filter(function(e) { return now < e.closeAt; });
+    var reservableDates = reservableSchedules.map(function(e) { return e.date; });
+    var isTodayReservable = reservableDates.indexOf(today) !== -1;
+    var futureReservableDates = reservableDates.filter(function(dt) { return dt > today; });
+    var todayCloseAt = (EVENT_SCHEDULES.find(function(e) { return e.date === today; }) || {}).closeAt;
 
     if (now < day1Start) {
       // 開催前: 通常カウントダウン
@@ -1399,30 +1415,34 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
       // 開催期間中
       var isEventToday = EVENT_DATES.indexOf(today) !== -1;
       var isLastDay = today === lastDay;
-      // 当日の事前予約は不可。未来の開催日分のみ予約可
-      var reservable = futureDates.length > 0;
+      var reservable = reservableDates.length > 0;
 
       elNum.style.display = 'none';
       elUnit.classList.add('is-message');
 
-      if (isEventToday && isLastDay) {
-        // 最終日 — 全予約終了
+      if (isEventToday && isLastDay && !isTodayReservable) {
+        // 最終日かつ事前予約締切後
         elLabel.textContent = '本日 最終日';
         elUnit.textContent = 'OPEN 12:00 〜 16:00';
-        elNote.innerHTML = '事前予約は受付終了しました<br>当日参加も可能です（最終受付 15:00）';
+        elNote.innerHTML = '事前予約は受付終了しました<br>予約特典(ドリンクチケット)はつきませんが、当日参加は可能です（最終受付 15:00）';
       } else if (isEventToday) {
-        // 開催日その1（最終日ではない） — 翌日分の予約はまだ可能
+        // 開催日（最終日 or それ以外）だが、本日分または翌日分の予約が残っている
         elLabel.textContent = '本日 開催中';
         elUnit.textContent = 'OPEN 12:00 〜 16:00';
-        if (futureDates.length > 0) {
-          elNote.innerHTML = '当日参加も可能です（最終受付 15:00）<br>明日 ' + fmtDate(futureDates[0]) + ' の事前予約は本日中まで受付中';
+        var notes = [];
+        if (isTodayReservable && todayCloseAt) {
+          notes.push('本日分の事前予約は ' + fmtHHmm(todayCloseAt) + ' まで受付中');
         } else {
-          elNote.innerHTML = '当日参加も可能です（最終受付 15:00）';
+          notes.push('当日参加も可能です（最終受付 15:00）');
         }
+        if (futureReservableDates.length > 0) {
+          notes.push('明日 ' + fmtDate(futureReservableDates[0]) + ' の事前予約も受付中');
+        }
+        elNote.innerHTML = notes.join('<br>');
       } else {
         // 期間内で今日は開催日ではない
         elLabel.textContent = '次回開催';
-        elUnit.textContent = fmtDate(futureDates[0]);
+        elUnit.textContent = fmtDate(reservableDates[0] || EVENT_DATES[0]);
         elNote.textContent = '事前予約 受付中';
       }
 
