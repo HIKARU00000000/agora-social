@@ -1426,15 +1426,12 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         elUnit.textContent = 'OPEN 12:00 〜 16:00';
         elNote.innerHTML = '事前予約は受付終了しました<br>予約特典(ドリンクチケット)はつきませんが、当日参加は可能です（最終受付 15:00）';
       } else if (isEventToday) {
-        // 開催日（最終日 or それ以外）だが、本日分または翌日分の予約が残っている
-        elLabel.textContent = '本日 開催中';
+        // 開催日 — 12:00 以降のみ「開催中」、それまでは「本日 開催」
+        var openTime = d(today, '12:00');
+        var isOpen = now >= openTime;
+        elLabel.textContent = isOpen ? '本日 開催中' : '本日 開催';
         elUnit.textContent = 'OPEN 12:00 〜 16:00';
-        var notes = [];
-        if (isTodayReservable && todayCloseAt) {
-          notes.push('本日分の事前予約は ' + fmtHHmm(todayCloseAt) + ' まで受付中');
-        } else {
-          notes.push('当日参加も可能です（最終受付 15:00）');
-        }
+        var notes = ['当日参加も可能です（最終受付 15:00）'];
         if (futureReservableDates.length > 0) {
           notes.push('明日 ' + fmtDate(futureReservableDates[0]) + ' の事前予約も受付中');
         }
