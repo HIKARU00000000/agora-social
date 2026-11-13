@@ -1433,7 +1433,7 @@ footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); 
         elUnit.textContent = 'OPEN 12:00 〜 16:00';
         var notes = ['当日参加も可能です（最終受付 15:00）'];
         if (futureReservableDates.length > 0) {
-          notes.push('明日 ' + fmtDate(futureReservableDates[0]) + ' の事前予約も受付中');
+          notes.push('明日 ' + fmtDate(futureReservableDates[0]) + ' の事前予約は受付中');
         }
         elNote.innerHTML = notes.join('<br>');
       } else {
